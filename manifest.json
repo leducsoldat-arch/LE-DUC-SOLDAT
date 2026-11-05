@@ -1,0 +1,18 @@
+{
+  "name": "LE DUC SOLDAT",
+  "short_name": "LE DUC SOLDAT",
+  "description": "App Officielle - LE DUC SOLDAT - C'est Dieu la force",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://i.imgur.com/eDIPOum.jpeg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ]
+}

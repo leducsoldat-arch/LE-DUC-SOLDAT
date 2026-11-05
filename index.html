@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LE DUC SOLDAT</title>
+<link rel="icon" href="https://i.imgur.com/eDIPOum.jpeg">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#000000">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="LE DUC SOLDAT">
+<link rel="apple-touch-icon" href="https://i.imgur.com/eDIPOum.jpeg">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif}
+body{background:#000;color:#fff;padding-bottom:120px;transition:0.3s}
+body.theme-light{background:#f5f5f5;color:#111}
+body.theme-light .top{background:#fff;border-color:#ddd}
+body.theme-light .hero, body.theme-light .bio, body.theme-light .track, body.theme-light .menu-box{background:#fff;border-color:#ddd}
+body.theme-light .section-title{color:#b8860b}
+body.theme-red{background:#1a0000;color:#fff}
+body.theme-red .top{background:#1a0000}
+body.theme-red h1, body.theme-red .section-title{color:#ff2222}
+body.text-big{font-size:18px}
+body.text-big .bio p{font-size:18px;line-height:1.8}
+.top{padding:20px;display:flex;gap:14px;align-items:center;position:sticky;top:0;background:#000;z-index:100;border-bottom:1px solid #222}
+.avatar{width:58px;height:58px;border-radius:50%;border:2px solid #d4af37;background-size:cover;background-position:center}
+h1{color:#d4af37;font-size:22px}
+.menu-btn{background:#d4af37;color:#000;border:0;width:46px;height:46px;border-radius:50%;font-size:22px;font-weight:900;margin-left:auto;cursor:pointer;position:relative;z-index:101}
+.hero{margin:16px;background:#111;border:1px solid #333;border-radius:20px;overflow:hidden}
+.hero-img{height:340px;background-size:cover;background-position:center;display:flex;align-items:flex-end;padding:16px}
+.hero-img h2{font-size:36px;color:#d4af37;text-shadow:0 2px 10px #000;line-height:1}
+.player{padding:16px}
+.player iframe{width:100%;height:200px;border-radius:12px;border:0}
+.btn{width:100%;background:#d4af37;color:#000;border:0;padding:14px;border-radius:50px;font-weight:900;margin-top:12px;cursor:pointer}
+.btn2{width:100%;background:#1DB954;color:#000;border:0;padding:14px;border-radius:50px;font-weight:900;margin-top:10px;cursor:pointer}
+.btn-close{width:100%;background:#222;color:#fff;border:1px solid #d4af37;padding:12px;border-radius:50px;font-weight:900;margin-top:14px;cursor:pointer}
+.track{display:flex;gap:12px;padding:12px;background:#111;border-radius:14px;margin:0 20px 10px;border:1px solid #222;align-items:center}
+.num{color:#d4af37;font-weight:900}
+.track b{font-size:16px}
+.track span{font-size:12px;opacity:.6}
+.track-info{flex:1}
+.preview-btn{background:#d4af37;color:#000;border:0;padding:8px 12px;border-radius:50px;font-weight:900;font-size:12px;white-space:nowrap;cursor:pointer}
+.preview-btn.playing{background:#fff}
+.showmore{display:block;margin:6px auto 20px;background:#222;color:#fff;border:1px solid #444;padding:10px 22px;border-radius:50px;font-weight:700;cursor:pointer}
+.hidden{display:none}
+.social{display:flex;gap:10px;padding:0 20px;margin-top:10px}
+.social button{flex:1;padding:14px;border:0;border-radius:50px;font-weight:900;font-size:14px;cursor:pointer}
+.insta{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:#fff}
+.yt{background:#FF0000;color:#fff}
+.tiktok{background:#fff;color:#000}
+.logo-box{margin:16px 20px 0;border-radius:20px;overflow:hidden;border:1px solid #333}
+.logo-box img{width:100%;display:block}
+.mini-player{position:fixed;bottom:0;left:0;right:0;background:#141414;border-top:2px solid #d4af37;padding:14px 16px 18px;z-index:999;display:none}
+.mini-player.show{display:block}
+.mini-player b{color:#d4af37;font-size:15px}
+.progress{height:4px;background:#333;border-radius:10px;margin:10px 0;overflow:hidden}
+.progress div{height:100%;width:0%;background:#d4af37}
+.close-mini{background:#222;color:#fff;border:1px solid #444;padding:6px 14px;border-radius:50px;float:right;cursor:pointer}
+#spotifyEmbed{width:100%;height:152px;border:0;border-radius:12px;margin-top:10px;display:none}
+.menu-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.95);z-index:1000;display:none;padding:20px;overflow-y:auto}
+.menu-overlay.show{display:block}
+.menu-box{background:#111;border:1px solid #d4af37;border-radius:20px;padding:20px}
+.menu-box h2{color:#d4af37;margin-bottom:16px}
+.menu-box button{display:block;width:100%;background:#222;color:#fff;border:1px solid #333;padding:16px;border-radius:14px;margin-bottom:10px;font-weight:900;font-size:16px;text-align:left;cursor:pointer}
+.menu-box button span{color:#d4af37;margin-right:8px}
+.close-menu{background:#d4af37;color:#000;border:0;padding:12px 20px;border-radius:50px;font-weight:900;width:100%;margin-top:6px;cursor:pointer}
+.bio{margin:16px 20px;background:#111;border:1px solid #d4af37;border-radius:20px;padding:20px}
+.bio h2{color:#d4af37;font-size:22px;margin-bottom:8px}
+.bio h3{font-size:14px;opacity:.6;margin-bottom:12px;font-weight:400}
+.bio p{font-size:15px;line-height:1.6;opacity:.9}
+.bio-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.bio-tags span{background:#d4af37;color:#000;padding:6px 12px;border-radius:50px;font-size:12px;font-weight:900}
+.section-title{padding:0 20px 10px;color:#d4af37;font-weight:900}
+.lang-buttons{display:flex;gap:10px;margin:16px 20px 0}
+.lang-buttons button{flex:1;padding:15px;border-radius:50px;font-weight:900;font-size:15px;cursor:pointer;border:2px solid #d4af37}
+.lang-fr{background:#002654;color:#fff}
+.lang-it{background:#009246;color:#fff}
+.lang-buttons button.active{background:#d4af37;color:#000}
+.settings-label{font-size:12px;opacity:.6;margin:16px 0 6px;font-weight:900;letter-spacing:1px}
+.settings-row{display:flex;gap:8px;margin-bottom:6px}
+.settings-row button{flex:1;padding:12px;border-radius:12px;font-weight:900;font-size:13px;text-align:center !important;border:2px solid #d4af37 !important;background:#222 !important}
+.settings-row button.active{background:#d4af37 !important;color:#000 !important}
+.settings-info{background:#222;border:1px solid #333;border-radius:12px;padding:12px;font-size:13px;line-height:1.5;opacity:.9;margin-top:12px}
+</style>
+</head>
+<body>
+<script>
+const LOGO = "https://i.imgur.com/eDIPOum.jpeg";
+const FOTO = "https://i.imgur.com/uorSsRP.jpeg";
+</script>
+<div class="top"><div class="avatar" id="av"></div><div><h1>LE DUC SOLDAT</h1><div style="font-size:12px;opacity:.6">Rap • 237 / Italy • Officiel • 🐺</div></div><button class="menu-btn" id="menuBtn">☰</button></div>
+<div class="menu-overlay" id="menuOverlay">
+<div class="menu-box" id="menuMain">
+<h2>☰ MENU</h2>
+<button onclick="goTo('home')"><span>🏠</span> HOME</button>
+<button onclick="goTo('bioSection')"><span>🐺</span> CHI SONO - LA MIA STORIA</button>
+<button onclick="goTo('musica')"><span>🎵</span> MUSICA - ANTEPRIME</button>
+<button onclick="goTo('social')"><span>📱</span> SEGUIMI</button>
+<button onclick="window.open('https://open.spotify.com/artist/0bLBHQuNF6i34FPQ4op2uG')"><span>🟢</span> SPOTIFY</button>
+<button onclick="openSettings()" style="border-color:#d4af37;background:#333"><span>⚙️</span> IMPOSTAZIONI</button>
+<button class="close-menu" id="closeMenuBtn">✕ CHIUDI MENU</button>
+</div>
+<div class="menu-box hidden" id="menuSettings">
+<h2>⚙️ IMPOSTAZIONI</h2>
+<div class="settings-label">🌍 LINGUA DELL'APP</div>
+<div class="settings-row">
+<button id="setLangFR" onclick="setLang('fr')">🇫🇷 FRANÇAIS</button>
+<button id="setLangIT" onclick="setLang('it')">🇮🇹 ITALIANO</button>
+</div>
+<div class="settings-info" id="langInfo">La descrizione e i bottoni saranno nella lingua che scegli.</div>
+<div class="settings-label">🎨 TEMA DELL'APP</div>
+<div class="settings-row">
+<button id="themeDark" onclick="setTheme('dark')">🖤 NERO ORO</button>
+<button id="themeLight" onclick="setTheme('light')">🤍 CHIARO</button>
+</div>
+<div class="settings-row">
+<button id="themeRed" onclick="setTheme('red')">❤️ ROSSO SOLDAT</button>
+<button onclick="setTheme('dark')">🔄 RESET</button>
+</div>
+<div class="settings-label">🔤 DIMENSIONE TESTO</div>
+<div class="settings-row">
+<button id="textNormal" onclick="setTextSize('normal')">A NORMALE</button>
+<button id="textBig" onclick="setTextSize('big')">A+ GRANDE</button>
+</div>
+<div class="settings-label">🎵 ANTEPRIME</div>
+<div class="settings-row">
+<button id="previewOn" onclick="setPreview(true)">▶️ ON</button>
+<button id="previewOff" onclick="setPreview(false)">⏸️ OFF</button>
+</div>
+<div class="settings-info">🐺 <b>LE DUC SOLDAT - App Officielle</b><br>Versione 1.0 • 237 / Italy<br>Le tue impostazioni restano salvate anche se chiudi l'app.</div>
+<button onclick="backToMenu()" style="margin-top:14px;background:#d4af37 !important;color:#000 !important">← TORNA AL MENU</button>
+<button class="close-menu" onclick="closeMenu()">✕ CHIUDI</button>
+</div>
+</div>
+<div id="home">
+<div class="logo-box"><img src="https://i.imgur.com/eDIPOum.jpeg" alt="LE DUC SOLDAT LOGO"></div>
+<div class="hero"><div class="hero-img" id="hero"><h2>C’est Dieu<br>la force</h2></div>
+<div class="player">
+<iframe src="https://www.youtube.com/embed/Vmosod8lDlk" allowfullscreen></iframe>
+<button class="btn" onclick="window.open('https://youtu.be/Vmosod8lDlk')">▶ PLAY - ROULER DANS LA BOUE</button>
+<button class="btn2" onclick="window.open('https://open.spotify.com/artist/0bLBHQuNF6i34FPQ4op2uG')">▶ SEGUIMI SU SPOTIFY</button>
+<button class="btn" style="background:#ff6a00" onclick="window.open('https://leducsoldat.bandcamp.com/album/soldat')">💿 ASCOLTA L'ALBUM SOLDAT - BANDCAMP</button>
+<button class="btn" style="background:#ff5500" onclick="window.open('https://on.soundcloud.com/Ko7XJQidSRxuaTe9fc')">☁️ ASCOLTA SU SOUNDCLOUD</button>
+</div></div>
+</div>
+<div id="bioSection">
+<div class="lang-buttons">
+<button class="lang-fr" id="btnFR" onclick="showLang('fr')">🇫🇷 FRANÇAIS</button>
+<button class="lang-it" id="btnIT" onclick="showLang('it')">🇮🇹 ITALIANO</button>
+</div>
+<div id="bioFR" class="bio hidden">
+<h2>🐺 LE DUC SOLDAT</h2>
+<h3>Rap • 237 / Italy • Officiel</h3>
+<p>Je m'appelle <b style="color:#d4af37">LE DUC SOLDAT</b>. Je ne suis pas venu pour faire semblant.<br><br>Je viens de la rue, de la vraie vie. J'ai vu les angles morts, j'ai vécu ce que je raconte. Chaque morceau c'est une bataille, chaque parole c'est une vérité.<br><br>Je suis un soldat. Je ne recule pas. Je roule dans la boue, je me relève, je continue. La musique c'est ma guerre, c'est ma façon de dire ce que les autres n'osent pas dire.<br><br>237 c'est chez moi, c'est dans mon sang. Italy c'est où je construis mon empire. <b style="color:#d4af37">Je rappe en français et aussi en italien</b>, je vis en soldat, je reste loyal.<br><br>Si tu écoutes mes sons, tu comprends qui je suis. Pas de masque. Pas de fake. Juste LE DUC SOLDAT.</p>
+<div class="bio-tags"><span>🐺 SOLDAT</span><span>🎤 RAP</span><span>🇨🇲 237</span><span>🇮🇹 ITALY</span><span>👑 LE DUC</span></div>
+<button class="btn-close" onclick="closeBio()">✕ CHIUDI - TORNA ALLA PAGINA INIZIALE</button>
+</div>
+<div id="bioIT" class="bio hidden">
+<h2>🐺 LE DUC SOLDAT</h2>
+<h3>Rap • 237 / Italia • Ufficiale</h3>
+<p>Mi chiamo <b style="color:#d4af37">LE DUC SOLDAT</b>. Non sono venuto per fare finta.<br><br>Vengo dalla strada, dalla vita vera. Ho visto gli angoli morti, ho vissuto quello che racconto. Ogni pezzo è una battaglia, ogni parola è una verità.<br><br>Sono un soldato. Non torno indietro. Rotolo nel fango, mi rialzo, continuo. La musica è la mia guerra, è il mio modo di dire quello che gli altri non hanno il coraggio di dire.<br><br>237 è casa mia, è nel mio sangue. L'Italia è dove sto costruendo il mio impero. <b style="color:#d4af37">Rappo in francese e anche in italiano</b>, vivo da soldato, resto leale.<br><br>Se ascolti i miei pezzi, capisci chi sono. Niente maschere. Niente fake. Solo LE DUC SOLDAT.</p>
+<div class="bio-tags"><span>🐺 SOLDATO</span><span>🎤 RAP</span><span>🇨🇲 237</span><span>🇮🇹 ITALIA</span><span>👑 LE DUC</span></div>
+<button class="btn-close" onclick="closeBio()">✕ CHIUDI - TORNA ALLA PAGINA INIZIALE</button>
+</div>
+<div style="padding:0 20px"><button class="btn" id="listenBtn" onclick="openMusica()">🎵 ASCOLTA LA MIA MUSICA</button></div>
+</div>
+<div id="musica" class="hidden">
+<div style="padding:0 20px;margin-top:20px"><button class="btn-close" onclick="closeMusica()">✕ CHIUDI - TORNA ALLA PAGINA INIZIALE</button></div>
+<div class="section-title" style="margin-top:16px">POPOLARE - SPOTIFY</div>
+<div class="track"><div class="num">01</div><div class="track-info"><b>Les angles morts</b><br><span>LE DUC SOLDAT • < 1000</span></div><button class="preview-btn" onclick="playPreview('Les angles morts',this)">▶ ANTEPRIMA</button></div>
+<div class="track"><div class="num">02</div><div class="track-info"><b>Je m'identifie</b><br><span>LE DUC SOLDAT • < 1000</span></div><button class="preview-btn" onclick="playPreview('Je m identifie',this)">▶ ANTEPRIMA</button></div>
+<div class="track"><div class="num">03</div><div class="track-info"><b>Tu vas donner</b><br><span>LE DUC SOLDAT • < 1000</span></div><button class="preview-btn" onclick="playPreview('Tu vas donner',this)">▶ ANTEPRIMA</button></div>
+<div class="track"><div class="num">04</div><div class="track-info"><b>Rouler dans la boue</b><br><span>LE DUC SOLDAT • < 1000</span></div><button class="preview-btn" onclick="playPreview('Rouler dans la boue',this)">▶ ANTEPRIMA</button></div>
+<div class="track"><div class="num">05</div><div class="track-info"><b>Fino a qui tutto bene</b><br><span>LE DUC SOLDAT • < 1000</span></div><button class="preview-btn" onclick="playPreview('Fino a qui tutto bene',this)">▶ ANTEPRIMA</button></div>
+<div class="track"><div class="num">06</div><div class="track-info"><b>Ça va boire fort</b><br><span>LE DUC SOLDAT • < 1000</span></div><button class="preview-btn" onclick="playPreview('Ca va boire fort',this)">▶ ANTEPRIMA</button></div>
+<button class="showmore" id="showBtn" onclick="mostra()">Mostra altro ▼</button>
+<div id="extra" class="hidden">
+<div style="margin:16px 20px"><iframe src="https://open.spotify.com/embed/artist/0bLBHQuNF6i34FPQ4op2uG?utm_source=generator" width="100%" height="352" style="border-radius:12px;border:0" allow="autoplay; encrypted-media" loading="lazy"></iframe></div>
+<div style="text-align:center;padding:0 20px 20px"><button class="btn2" onclick="window.open('https://open.spotify.com/artist/0bLBHQuNF6i34FPQ4op2uG')">▶ VEDI TUTTA LA DISCOGRAFIA SU SPOTIFY</button></div>
+</div>
+<div style="padding:0 20px 10px"><button class="btn-close" onclick="closeMusica()">✕ CHIUDI - TORNA ALLA PAGINA INIZIALE</button></div>
+</div>
+<div id="social">
+<div class="section-title" style="margin-top:20px">SEGUIMI</div>
+<div class="social">
+<button class="insta" onclick="window.open('https://www.instagram.com/le_duc_soldat')">📸 INSTAGRAM</button>
+<button class="yt" onclick="window.open('https://youtu.be/Vmosod8lDlk')">▶ YOUTUBE</button>
+<button class="tiktok" onclick="window.open('https://www.tiktok.com/@le_duc_soldat')">♪ TIKTOK</button>
+</div>
+<div class="social">
+<button style="background:#ff6a00;color:#fff" onclick="window.open('https://leducsoldat.bandcamp.com/album/soldat')">💿 BANDCAMP</button>
+<button style="background:#ff5500;color:#fff" onclick="window.open('https://on.soundcloud.com/Ko7XJQidSRxuaTe9fc')">☁️ SOUNDCLOUD</button>
+</div>
+</div>
+<div class="mini-player" id="miniPlayer">
+<button class="close-mini" onclick="closePreview()">✕ Chiudi</button>
+<div><b id="nowPlaying">Stai ascoltando...</b><br><span id="statusText" style="font-size:12px;opacity:.6">Anteprima 30s • LE DUC SOLDAT</span></div>
+<div class="progress"><div id="progressBar"></div></div>
+<div style="display:flex;gap:10px"><button id="playPauseBtn" class="preview-btn" style="flex:1;padding:12px" onclick="togglePlay()">⏸ PAUSA</button><button class="preview-btn" style="flex:1;padding:12px;background:#1DB954" onclick="window.open('https://open.spotify.com/artist/0bLBHQuNF6i34FPQ4op2uG')">APRI SU SPOTIFY</button></div>
+<iframe id="spotifyEmbed" allow="autoplay; encrypted-media" loading="lazy"></iframe>
+</div>
+<audio id="audioPlayer" preload="none"></audio>
+<script>
+document.getElementById('av').style.backgroundImage = "url("+LOGO+")";
+document.getElementById('hero').style.backgroundImage = "url("+FOTO+")";
+document.getElementById('menuBtn').addEventListener('click', function(){ document.getElementById('menuOverlay').classList.add('show'); document.getElementById('menuMain').classList.remove('hidden'); document.getElementById('menuSettings').classList.add('hidden'); });
+document.getElementById('closeMenuBtn').addEventListener('click', function(){ document.getElementById('menuOverlay').classList.remove('show'); });
+function closeMenu(){ document.getElementById('menuOverlay').classList.remove('show'); }
+function openSettings(){ document.getElementById('menuMain').classList.add('hidden'); document.getElementById('menuSettings').classList.remove('hidden'); }
+function backToMenu(){ document.getElementById('menuSettings').classList.add('hidden'); document.getElementById('menuMain').classList.remove('hidden'); }
+function goTo(id){ closeMenu(); var el=document.getElementById(id); if(el.classList.contains('hidden')) el.classList.remove('hidden'); el.scrollIntoView({behavior:'smooth'}); }
+function showLang(lang){ if(lang==='fr'){ document.getElementById('bioFR').classList.remove('hidden'); document.getElementById('bioIT').classList.add('hidden'); document.getElementById('btnFR').classList.add('active'); document.getElementById('btnIT').classList.remove('active'); document.getElementById('bioFR').scrollIntoView({behavior:'smooth'}); } else { document.getElementById('bioIT').classList.remove('hidden'); document.getElementById('bioFR').classList.add('hidden'); document.getElementById('btnIT').classList.add('active'); document.getElementById('btnFR').classList.remove('active'); document.getElementById('bioIT').scrollIntoView({behavior:'smooth'}); } }
+function closeBio(){ document.getElementById('bioFR').classList.add('hidden'); document.getElementById('bioIT').classList.add('hidden'); document.getElementById('btnFR').classList.remove('active'); document.getElementById('btnIT').classList.remove('active'); document.getElementById('home').scrollIntoView({behavior:'smooth'}); }
+function openMusica(){ document.getElementById('musica').classList.remove('hidden'); document.getElementById('musica').scrollIntoView({behavior:'smooth'}); }
+function closeMusica(){ document.getElementById('musica').classList.add('hidden'); closePreview(); document.getElementById('home').scrollIntoView({behavior:'smooth'}); }
+function mostra(){ var e=document.getElementById('extra'); var b=document.getElementById('showBtn'); if(e.classList.contains('hidden')){ e.classList.remove('hidden'); b.innerHTML='Mostra meno ▲'; } else { e.classList.add('hidden'); b.innerHTML='Mostra altro ▼'; } }
+let previewEnabled = true;
+function setLang(lang){ document.getElementById('setLangFR').classList.remove('active'); document.getElementById('setLangIT').classList.remove('active'); if(lang==='fr'){ document.getElementById('setLangFR').classList.add('active'); document.getElementById('langInfo').textContent = 'Langue choisie : Français. La bio en français s’ouvrira en premier.'; document.getElementById('listenBtn').textContent = '🎵 ÉCOUTER MA MUSIQUE'; try{ localStorage.setItem('duc_lang','fr'); }catch(e){} showLang('fr'); closeMenu(); } else { document.getElementById('setLangIT').classList.add('active'); document.getElementById('langInfo').textContent = 'Lingua scelta: Italiano. La bio in italiano si aprirà per prima.'; document.getElementById('listenBtn').textContent = '🎵 ASCOLTA LA MIA MUSICA'; try{ localStorage.setItem('duc_lang','it'); }catch(e){} showLang('it'); closeMenu(); } }
+function setTheme(t){ document.body.classList.remove('theme-light','theme-red'); document.getElementById('themeDark').classList.remove('active'); document.getElementById('themeLight').classList.remove('active'); document.getElementById('themeRed').classList.remove('active'); if(t==='light'){ document.body.classList.add('theme-light'); document.getElementById('themeLight').classList.add('active'); } else if(t==='red'){ document.body.classList.add('theme-red'); document.getElementById('themeRed').classList.add('active'); } else { document.getElementById('themeDark').classList.add('active'); } try{ localStorage.setItem('duc_theme',t); }catch(e){} }
+function setTextSize(s){ document.getElementById('textNormal').classList.remove('active'); document.getElementById('textBig').classList.remove('active'); if(s==='big'){ document.body.classList.add('text-big'); document.getElementById('textBig').classList.add('active'); } else { document.body.classList.remove('text-big'); document.getElementById('textNormal').classList.add('active'); } try{ localStorage.setItem('duc_text',s); }catch(e){} }
+function setPreview(on){ previewEnabled = on; document.getElementById('previewOn').classList.toggle('active', on); document.getElementById('previewOff').classList.toggle('active', !on); if(!on) closePreview(); }
+try{ var savedTheme = localStorage.getItem('duc_theme'); if(savedTheme) setTheme(savedTheme); else setTheme('dark'); var savedText = localStorage.getItem('duc_text'); if(savedText) setTextSize(savedText); else setTextSize('normal'); setPreview(true); }catch(e){ setTheme('dark'); setTextSize('normal'); }
+let audio = document.getElementById('audioPlayer');
+let currentBtn = null;
+async function playPreview(title, btn){ if(!previewEnabled){ alert('Anteprime disattivate nelle Impostazioni. Riattivale per ascoltare.'); return; } if(currentBtn === btn && !audio.paused){ audio.pause(); btn.textContent='▶ ANTEPRIMA'; btn.classList.remove('playing'); document.getElementById('playPauseBtn').textContent='▶ RIPRENDI'; return; } if(currentBtn === btn && audio.paused && audio.src){ audio.play(); btn.textContent='⏸ STOP'; btn.classList.add('playing'); document.getElementById('playPauseBtn').textContent='⏸ PAUSA'; return; } document.querySelectorAll('.preview-btn').forEach(b=>{ if(b.id!=='playPauseBtn'){ b.textContent='▶ ANTEPRIMA'; b.classList.remove('playing'); } }); currentBtn = btn; btn.textContent='⌛ CARICO...'; document.getElementById('nowPlaying').textContent = '▶ ' + title; document.getElementById('statusText').textContent = 'Carico anteprima...'; document.getElementById('miniPlayer').classList.add('show'); document.getElementById('spotifyEmbed').style.display='none'; document.getElementById('spotifyEmbed').src=''; audio.pause(); audio.src=''; try{ const res = await fetch('https://api.deezer.com/search?q=' + encodeURIComponent('LE DUC SOLDAT ' + title) + '&output=jsonp&callback=cb'); const text = await res.text(); const json = JSON.parse(text.substring(text.indexOf('(')+1, text.lastIndexOf(')'))); let found = json.data && json.data[0]; if(found && found.preview){ audio.src = found.preview; await audio.play(); btn.textContent='⏸ STOP'; btn.classList.add('playing'); document.getElementById('statusText').textContent = 'Anteprima 30s • Deezer • ' + found.artist.name; document.getElementById('playPauseBtn').textContent='⏸ PAUSA'; return; } }catch(e){} try{ const res2 = await fetch('https://itunes.apple.com/search?term=' + encodeURIComponent('LE DUC SOLDAT ' + title) + '&media=music&limit=3'); const data2 = await res2.json(); let f2 = data2.results.find(r=>r.previewUrl); if(f2){ audio.src = f2.previewUrl; await audio.play(); btn.textContent='⏸ STOP'; btn.classList.add('playing'); document.getElementById('statusText').textContent = 'Anteprima 30s • Apple Music'; document.getElementById('playPauseBtn').textContent='⏸ PAUSA'; return; } }catch(e){} document.getElementById('statusText').textContent = 'Anteprima Spotify • Clicca ▶ nel player qui sotto'; document.getElementById('playPauseBtn').textContent='▶ SPOTIFY'; btn.textContent='▶ ANTEPRIMA SPOTIFY'; var sp = document.getElementById('spotifyEmbed'); sp.style.display='block'; sp.src = 'https://open.spotify.com/embed/artist/0bLBHQuNF6i34FPQ4op2uG?utm_source=generator'; }
+function togglePlay(){ if(audio.src && !audio.paused){ audio.pause(); document.getElementById('playPauseBtn').textContent='▶ RIPRENDI'; } else if(audio.src){ audio.play(); document.getElementById('playPauseBtn').textContent='⏸ PAUSA'; } }
+audio.addEventListener('timeupdate', ()=>{ if(audio.duration){ document.getElementById('progressBar').style.width = (audio.currentTime/audio.duration*100)+'%'; } });
+audio.addEventListener('ended', ()=>{ closePreview(); });
+function closePreview(){ audio.pause(); audio.src=''; document.getElementById('miniPlayer').classList.remove('show'); document.getElementById('progressBar').style.width='0%'; document.getElementById('spotifyEmbed').src=''; document.getElementById('spotifyEmbed').style.display='none'; document.querySelectorAll('.preview-btn').forEach(b=>{ if(b.id!=='playPauseBtn'){ b.textContent='▶ ANTEPRIMA'; b.classList.remove('playing'); } }); currentBtn = null; }
+</script>
+<script>
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js');
+}
+</script>
+</body>
+</html>
